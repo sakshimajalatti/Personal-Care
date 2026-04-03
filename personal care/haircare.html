@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hair Care </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="common.css"/>
+   
+
+
+    <style>
+      :root {
+        --primary-pink: #fdf2f4;
+        --accent-pink: #f8d7da;
+        --border-pink: #f4c2c9;
+        --text-dark: #4a2c2a;
+        --text-light: #7a7a7a;
+        --white: #ffffff;
+      }
+      /* Main Content */
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .hero h1 {
+        font-size: 32px;
+        margin-bottom: 5px;
+      }
+      .hero p {
+        color: var(--text-light);
+        margin-bottom: 30px;
+      }
+
+      /* Concern Cards */
+      .concern-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        background: rgb(228, 188, 188);
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        border: #f4c2c9 solid ;
+      }
+
+      .concern-card {
+        border: 1px solid #f8f6f6;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .concern-card:hover {
+        transform: translateY(-5px);
+      }
+      .concern-card.active {
+        border: 2px solid var(--border-pink);
+        background: #fffcfd;
+      }
+
+     
+      .concern-card h4 {
+        margin: 10px 0 5px;
+        font-size: 16px;
+      }
+      .concern-card p {
+        font-size: 12px;
+        color: var(--text-light);
+        margin: 0;
+      }
+
+      /* Recipe Section */
+      .remedy-section {
+        margin-top: 50px;
+      }
+      .recipe-grid {
+       display: grid;
+       grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+       gap: 24px;
+}
+
+
+      .product-grid {
+       display: grid;
+       grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+       gap: 24px;
+      }
+
+
+      .recipe-card {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        position: relative;
+        border: #510606 solid 0.3px;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #f3ebff;
+        color: #6f42c1;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        margin-top: 15px;
+      }
+   
+
+
+    </style>
+  </head>
+  <body>
+   
+<header class="navbar">
+    <div class="logo">
+        <img src="elira-logo1.jpg" alt="Elira Logo">
+        <span>Elira</span>
+    </div>
+
+    <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="period.html">Cycle</a>
+        <a href="skincare.html">Skin Care</a>
+        <a href="haircare.html" id="selected">Hair Care</a>
+    </nav>
+     <div class="user-box">
+  <span id="userName"><b>Hi</b></span>
+  <i class="fa-solid fa-right-from-bracket logout-icon" onclick="logout()"></i>
+</div>
+
+<script src="commmon.js"></script>
+
+</header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Hair Care Remedies </h1>
+        <p>Natural Ayurvedic solutions for your hair concerns</p>
+      </section>
+
+      <section class="concern-section">
+        <h3>What's your main hair concern?</h3>
+        <div class="concern-grid" id="concernGrid">
+          <div class="concern-card" data-type="oily">
+     
+            <h4>Oily Scalp</h4>
+            <p>Greasy, limp hair</p>
+          </div>
+          <div class="concern-card" data-type="dry">
+            
+            <h4>Dry Hair</h4>
+            <p>Brittle, rough texture</p>
+          </div>
+          <div class="concern-card" data-type="dandruff">
+          
+            <h4>Dandruff</h4>
+            <p>Flaky, itchy scalp</p>
+          </div>
+          <div class="concern-card" data-type="hairfall">
+          
+            <h4>Hair Fall</h4>
+            <p>Thinning, excess shedding</p>
+          </div>
+          <div class="concern-card active" data-type="frizzy">
+            <h4>Frizzy</h4>
+            <p>Unruly, lacks definition</p>
+          </div>
+          <div class="concern-card" data-type="healthy">
+            <h4>Healthy</h4>
+            <p>Balanced, manageable</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="remedy-section">
+        <h2 id="remedyTitle">Remedies for Frizzy</h2>
+        <div class="recipe-grid" id="recipeContainer"></div>
+      </section>
+      <section class="product-section mt-5">
+        <h2 id="productTitle">Recommended Products for Frizzy</h2>
+        <div class="product-grid" id="productContainer">
+          <!-- Products will appear here dynamically -->
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const remedies = {
+        oily: [
+          {
+            title: "Aloe Vera & Lemon Pack",
+            ingredients: "2 tbsp aloe vera gel, 1 tsp lemon juice",
+            howToUse:
+              "Apply to scalp, leave for 20 minutes, then rinse with lukewarm water.",
+            benefits:
+              "Controls excess oil, unclogs pores, and refreshes the scalp.",
+            tag: "Balances Sebum",
+          },
+          {
+            title: "Multani Mitti Pack",
+            ingredients: "2 tbsp multani mitti, rose water",
+            howToUse:
+              "Apply evenly on scalp, let it dry completely, then wash off.",
+            benefits: "Absorbs excess oil and deeply cleanses the scalp.",
+            tag: "Deep Cleanse",
+          },
+          {
+            title: "Green Tea Rinse",
+            ingredients: "Brewed green tea (cooled)",
+            howToUse:
+              "Use as a final rinse after shampooing. Do not rinse again.",
+            benefits: "Reduces oiliness and helps control dandruff.",
+            tag: "Oil Control",
+          },
+
+          {
+            title: "Neem & Aloe Scalp Pack",
+            ingredients: "2 tbsp aloe vera gel, 1 tbsp neem powder",
+            howToUse: "Apply to scalp, leave for 20 minutes, rinse with lukewarm water.",
+            benefits: "Controls excess oil and keeps scalp clean.",
+            tag: "Oil Control"
+}
+
+        ],
+
+        dry: [
+          {
+            title: "Coconut Oil & Honey Mask",
+            ingredients: "2 tbsp coconut oil, 1 tbsp honey",
+            howToUse:
+              "Apply from mid-length to ends, leave for 30 minutes, then shampoo.",
+            benefits: "Deeply moisturizes and restores natural shine.",
+            tag: "Deep Moisture",
+          },
+          {
+            title: "Banana & Milk Pack",
+            ingredients: "1 ripe banana, 2 tbsp milk",
+            howToUse:
+              "Blend well, apply evenly, leave for 25 minutes, then rinse.",
+            benefits: "Softens dry hair and reduces roughness.",
+            tag: "Softening Care",
+          },
+          {
+            title: "Egg Yolk & Olive Oil Mask",
+            ingredients: "1 egg yolk, 1 tbsp olive oil",
+            howToUse:
+              "Apply to hair, leave for 20 minutes, wash with mild shampoo.",
+            benefits: "Repairs dryness and strengthens hair strands.",
+            tag: "Repair & Nourish",
+          },
+
+          {
+            title: "Shea Butter & Coconut Oil Mask",
+            ingredients: "1 tbsp shea butter, 2 tbsp coconut oil",
+            howToUse: "Apply to hair lengths, leave for 40 minutes, then shampoo.",
+            benefits: "Provides deep moisture and reduces dryness.",
+           tag: "Deep Hydration"
+}
+
+        ],
+
+        dandruff: [
+          {
+            title: "Curd & Lemon Pack",
+            ingredients: "3 tbsp curd, 1 tsp lemon juice",
+            howToUse:
+              "Apply to scalp, leave for 30 minutes, then rinse and shampoo.",
+            benefits: "Removes dandruff flakes and soothes itchiness.",
+            tag: "Anti-Dandruff",
+          },
+          {
+            title: "Neem Paste",
+            ingredients: "Neem paste or neem powder mixed with water",
+            howToUse: "Apply to scalp, leave for 20 minutes, then rinse.",
+            benefits: "Prevents fungal infections and controls dandruff.",
+            tag: "Scalp Detox",
+          },
+          {
+            title: "Apple Cider Vinegar Rinse",
+            ingredients: "1 tbsp ACV, 1 cup water",
+            howToUse:
+              "Rinse scalp after shampooing, leave for 1 minute, rinse lightly.",
+            benefits: "Balances scalp pH and reduces dandruff.",
+            tag: "pH Balance",
+          },
+          {
+            title: "Tea Tree & Coconut Oil Treatment",
+            ingredients: "2 tbsp coconut oil, 3–4 drops tea tree oil",
+            howToUse: "Massage scalp, leave for 1 hour, then shampoo.",
+            benefits: "Reduces dandruff and relieves itchiness.",
+            tag: "Anti-Fungal"
+}
+
+        ],
+
+        hairfall: [
+          {
+            title: "Onion Juice Treatment",
+            ingredients: "Fresh onion juice",
+            howToUse: "Apply to scalp, leave for 30 minutes, then shampoo.",
+            benefits: "Boosts blood circulation and promotes hair growth.",
+            tag: "Hair Growth",
+          },
+          {
+            title: "Castor & Coconut Oil Massage",
+            ingredients: "1 tbsp castor oil, 2 tbsp coconut oil",
+            howToUse:
+              "Massage gently, leave overnight or 1 hour before washing.",
+            benefits: "Strengthens roots and reduces hair fall.",
+            tag: "Root Strength",
+          },
+          {
+            title: "Fenugreek (Methi) Pack",
+            ingredients: "Soaked fenugreek seed paste",
+            howToUse: "Apply to scalp, leave for 30 minutes, then wash.",
+            benefits: "Reduces hair fall and improves hair texture.",
+            tag: "Strength Boost",
+          },
+
+        {
+            title: "Amla & Coconut Oil Massage",
+            ingredients: "2 tbsp coconut oil, 1 tbsp amla powder",
+            howToUse: "Massage into scalp, leave overnight or 1 hour before wash.",
+            benefits: "Strengthens hair roots and reduces hair fall.",
+            tag: "Growth Boost"
+}
+
+        ],
+
+        frizzy: [
+          {
+            title: "Avocado & Curd Mask",
+            ingredients: "½ ripe avocado, 2 tbsp curd",
+            howToUse:
+              "Apply to hair lengths, leave for 30 minutes, then rinse.",
+            benefits: "Smoothens frizz and nourishes dry strands.",
+            tag: "Frizz Control",
+          },
+          {
+            title: "Aloe Vera & Argan Oil",
+            ingredients: "2 tbsp aloe vera gel, 1 tsp argan oil",
+            howToUse: "Apply on damp hair, focus on mid-lengths and ends.",
+            benefits: "Controls flyaways and adds shine.",
+            tag: "Smooth Finish",
+          },
+          {
+            title: "Rice Water Rinse",
+            ingredients: "Fermented rice water",
+            howToUse: "Rinse hair, leave for 10 minutes, then wash.",
+            benefits: "Improves smoothness and strengthens hair.",
+            tag: "Silky Hair",
+          },
+          {
+            title: "Flaxseed Gel & Coconut Milk Mask",
+            ingredients: "2 tbsp flaxseed gel, 2 tbsp coconut milk",
+            howToUse: "Apply on damp hair, focus on mid-lengths and ends, leave for 30 minutes, rinse with cool water.",
+            benefits: "Controls frizz, defines texture, and adds shine.",
+            tag: "Frizz Defense"
+}
+
+        ],
+
+        healthy: [
+          {
+            title: "Egg & Curd Pack",
+            ingredients: "1 egg, 2 tbsp curd",
+            howToUse: "Apply evenly, leave for 20 minutes, then shampoo.",
+            benefits: "Maintains strength and natural shine.",
+            tag: "Hair Health",
+          },
+          {
+            title: "Aloe Vera Gel Massage",
+            ingredients: "Fresh aloe vera gel",
+            howToUse: "Massage scalp for 15 minutes, then rinse.",
+            benefits: "Keeps scalp healthy and nourished.",
+            tag: "Scalp Care",
+          },
+          {
+            title: "Oil Mix Massage",
+            ingredients: "Coconut oil, almond oil, castor oil",
+            howToUse: "Massage weekly, leave for at least 1 hour, then wash.",
+            benefits: "Nourishes hair and supports long-term health.",
+            tag: "Weekly Nourish",
+          },
+
+          {
+            title: "Rose Water & Aloe Mist",
+            ingredients: "3 tbsp rose water, 1 tbsp aloe vera gel",
+            howToUse: "Spray on scalp and hair after wash, do not rinse.",
+            benefits: "Maintains shine and keeps scalp refreshed.",
+            tag: "Daily Care"
+}
+
+        ],
+      };
+
+      const products = {
+        oily: [
+          {
+            name: "L’Oréal Paris Hyaluron Pure 72H Purifying Shampoo, For oily scalp & dry hair with salicylic and hyaluronic acid, 800 ml",
+            price: "₹600",
+            img: "https://m.media-amazon.com/images/I/51nj-aOh4WL.jpg",
+            link: "https://amzn.in/d/e7aORMU",
+          },
+          {
+            name: "Mildy Everyday Shampoo | Aloe Vera Enriched | Paraben-Free | Gentle Cleanser for Daily Use | Soothes Dry & Itchy Scalp | Dermatologist Recommended | 100ml",
+            price: "₹173",
+            img: "https://www.clinikally.com/cdn/shop/files/MildyEverydayShampooForClean_HealthyHair100ml1.jpg?v=1756274123",
+            link: "https://amzn.in/d/fcz4sPh",
+          },
+          {
+            name: "The Derma Co. Peptide- Stem Cell Hair Fall Control Shampoo | Paraben & Sulphate Free | Shampoo for Women & Men | Reduces hair fall and breakage | Improves Scalp health - 200 ml",
+            price: "₹346",
+            img: "https://images.thedermaco.com/catalog/product/f/o/fop_peptide_shampoo_new.jpg?auto=format&fit=contain&width=720&auto=compress?format=auto",
+            link: "https://amzn.in/d/etJqf66",
+          },
+        ],
+        dry: [
+          { name: "Bare Anatomy Anti Hair Fall Shampoo | 5x Hair Fall Control & Growth|Contains Biotin Adenosine, & Peptides | Rosemary, Rice Water, Hyaluronic Acid | For All Hair Types | For Women & Men | 250ml", 
+            price: "₹445",
+            img: "data:image/jpeg;base64,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" ,
+            link:"https://amzn.in/d/a2z3Aag"},
+          {
+            name: "The Derma Co. Peptide- Stem Cell Hair Fall Control Shampoo | Paraben & Sulphate Free | Shampoo for Women & Men | Reduces hair fall and breakage | Improves Scalp health - 200 ml",
+            price: "₹346",
+            img: "https://images.thedermaco.com/catalog/product/f/o/fop_peptide_shampoo_new.jpg?auto=format&fit=contain&width=720&auto=compress?format=auto",
+            link: "https://amzn.in/d/etJqf66",
+          },
+          {
+            name: "L’Oréal Paris Hyaluron Pure 72H Purifying Shampoo, For oily scalp & dry hair with salicylic and hyaluronic acid, 800 ml",
+            price: "₹600",
+            img: "https://m.media-amazon.com/images/I/51nj-aOh4WL.jpg",
+            link: "https://amzn.in/d/e7aORMU",
+          },
+          
+        ],
+        dandruff: [
+          { name: "Pilgrim Australian Tea Tree Non-Drying Anti-Dandruff Shampoo 200 ml | Removes Dandruff from Source | Helps with Itching, Irritation | Strong & Smooth Hair | For Men & Women |", price: "₹228", img: "data:image/jpeg;base64,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",link:"https://amzn.in/d/6KU8FxE" },
+          { name: "Bare Anatomy Anti Dandruff Shampoo AllHair types 250ml and Chemist at Play UnderArm Roll-On with 5% AHA, Lactic Acid & 1% Mandelic Acid 40ml", price: "₹738", img: "data:image/jpeg;base64,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" ,link:"https://amzn.in/d/4wJZDbO" },
+          { name : "Mamaearth Tea Tree Anti Dandruff Shampoo, With Tea Tree & Ginger Oil, 250ml.",price: "₹236", img:"image/mamaearth.webp", link:"https://amzn.in/d/bIF19ij"}
+         
+        ],
+
+        hairfall:[
+          {
+            name: "The Derma Co. Peptide- Stem Cell Hair Fall Control Shampoo | Paraben & Sulphate Free | Shampoo for Women & Men | Reduces hair fall and breakage | Improves Scalp health - 200 ml",
+            price: "₹346",
+            img: "https://images.thedermaco.com/catalog/product/f/o/fop_peptide_shampoo_new.jpg?auto=format&fit=contain&width=720&auto=compress?format=auto",
+            link: "https://amzn.in/d/etJqf66",
+          },
+           { name: "Bare Anatomy Anti Hair Fall Shampoo | 5x Hair Fall Control & Growth|Contains Biotin Adenosine, & Peptides | Rosemary, Rice Water, Hyaluronic Acid | For All Hair Types | For Women & Men | 250ml", 
+            price: "₹445",
+            img: "data:image/jpeg;base64,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" ,
+            link:"https://amzn.in/d/a2z3Aag"},
+
+            {
+            name: "Mildy Everyday Shampoo | Aloe Vera Enriched | Paraben-Free | Gentle Cleanser for Daily Use | Soothes Dry & Itchy Scalp | Dermatologist Recommended | 100ml",
+            price: "₹173",
+            img: "https://www.clinikally.com/cdn/shop/files/MildyEverydayShampooForClean_HealthyHair100ml1.jpg?v=1756274123",
+            link: "https://amzn.in/d/fcz4sPh",
+          },
+
+        ],
+
+        frizzy: [
+          { name: "Bare Anatomy Anti Hair Fall Shampoo | 5x Hair Fall Control & Growth|Contains Biotin Adenosine, & Peptides | Rosemary, Rice Water, Hyaluronic Acid | For All Hair Types | For Women & Men | 250ml", 
+            price: "₹445",
+            img: "data:image/jpeg;base64,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" ,
+            link:"https://amzn.in/d/a2z3Aag"},
+          {
+            name: "L’Oréal Paris Hyaluron Pure 72H Purifying Shampoo, For oily scalp & dry hair with salicylic and hyaluronic acid, 800 ml",
+            price: "₹600",
+            img: "https://m.media-amazon.com/images/I/51nj-aOh4WL.jpg",
+            link: "https://amzn.in/d/e7aORMU",
+          },
+          {
+            name: "The Derma Co. Peptide- Stem Cell Hair Fall Control Shampoo | Paraben & Sulphate Free | Shampoo for Women & Men | Reduces hair fall and breakage | Improves Scalp health - 200 ml",
+            price: "₹346",
+            img: "https://images.thedermaco.com/catalog/product/f/o/fop_peptide_shampoo_new.jpg?auto=format&fit=contain&width=720&auto=compress?format=auto",
+            link: "https://amzn.in/d/etJqf66",
+          },
+         
+        ],
+        healthy: [
+        {
+            name: "L’Oréal Paris Hyaluron Pure 72H Purifying Shampoo, For oily scalp & dry hair with salicylic and hyaluronic acid, 800 ml",
+            price: "₹600",
+            img: "https://m.media-amazon.com/images/I/51nj-aOh4WL.jpg",
+            link: "https://amzn.in/d/e7aORMU",
+          },
+          {
+            name: "Mildy Everyday Shampoo | Aloe Vera Enriched | Paraben-Free | Gentle Cleanser for Daily Use | Soothes Dry & Itchy Scalp | Dermatologist Recommended | 100ml",
+            price: "₹173",
+            img: "https://www.clinikally.com/cdn/shop/files/MildyEverydayShampooForClean_HealthyHair100ml1.jpg?v=1756274123",
+            link: "https://amzn.in/d/fcz4sPh",
+          },
+           { name: "Bare Anatomy Anti Hair Fall Shampoo | 5x Hair Fall Control & Growth|Contains Biotin Adenosine, & Peptides | Rosemary, Rice Water, Hyaluronic Acid | For All Hair Types | For Women & Men | 250ml", 
+            price: "₹445",
+            img: "data:image/jpeg;base64,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" ,
+            link:"https://amzn.in/d/a2z3Aag"},
+        ],
+      };
+
+      const productContainer = document.getElementById("productContainer");
+      const productTitle = document.getElementById("productTitle");
+
+      function renderProducts(type) {
+        productContainer.innerHTML = "";
+        productTitle.textContent = `Recommended Products for ${
+          type.charAt(0).toUpperCase() + type.slice(1)
+        }`;
+
+        products[type].forEach((product) => {
+          productContainer.innerHTML += `
+      <div class="col">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${product.img}" class="img-fluid rounded-start" alt="${product.name}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text"><strong>${product.price}</strong></p>
+                <a href="${product.link}" target="_blank" class="btn btn-sm btn-primary">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+        });
+      }
+
+      const cards = document.querySelectorAll(".concern-card");
+      const recipeContainer = document.getElementById("recipeContainer");
+      const remedyTitle = document.getElementById("remedyTitle");
+
+      function renderRecipes(type) {
+        recipeContainer.innerHTML = "";
+        remedyTitle.textContent = `Remedies for ${
+          type.charAt(0).toUpperCase() + type.slice(1)
+        }`;
+
+        remedies[type].forEach((recipe) => {
+          recipeContainer.innerHTML += `
+      <div class="recipe-card">
+        <h3>${recipe.title}</h3>
+        <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+        <p><strong>How to use:</strong> ${recipe.howToUse}</p>
+        <p><strong>Benefits:</strong> ${recipe.benefits}</p>
+        <span class="tag"> ${recipe.tag}</span>
+      </div>
+    `;
+        });
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          cards.forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+
+          const type = card.dataset.type;
+          renderRecipes(type);
+          renderProducts(type);
+        });
+      });
+
+      // Load default (Frizzy)
+      renderRecipes("frizzy");
+
+
+    </script>
+  </body>
+</html>

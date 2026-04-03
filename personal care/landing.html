@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elira</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="common.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fff7f5;
+      color: #4a2d2a;
+    }
+
+    img{
+        height: 50px;
+        width:50px;
+        border-radius:50%;
+
+    }
+
+    /* Navbar */
+    .navbar{
+      background-color: #462428;
+      border-radius: 0 0 5px 5px;
+    }
+   
+
+    .navbar button, .navbar a {
+      background: white;
+      color: #5b0f15;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    a{
+        text-decoration:none;
+        color:#5b0f15;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('elira-bg.jpg') center/cover no-repeat;
+      height:60vh;
+      padding: 120px 40px;
+      text-align: center;
+      background-size: cover;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ffe7d6;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      max-width: 480px;
+      margin: 15px auto;
+      font-size: 15px;
+    }
+
+    .hero .btns button {
+      padding: 12px 22px;
+      border-radius: 20px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .primary-btn {
+      background: #d7b2a8;
+      color: #4a2d2a;
+      height:60px;
+      width:260px;
+      transition: all 0.5s ease;
+    }
+
+    .primary-btn:hover{
+    transform: scale(1.1);
+}
+
+    .outline-btn {
+      background: #e8c3c3;
+      color: #4a2d2a;
+      height:60px;
+      width:260px;
+      transition: all 0.5s ease;
+    }
+
+    .outline-btn:hover{
+        transform: scale(1.1);
+    }
+    .section {
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .section h3 {
+      color: #7b2042;
+      font-size: 32px;
+      margin-top: -10px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 45px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      transition: transform 0.5s ease;
+      box-shadow: black ; 
+      /* background-color: bisque; */
+    }
+
+    .card:hover{
+        transform:scale(1.1);
+       
+    }
+
+    .card {
+      background: rgb(246, 226, 226);
+      padding: 25px;
+      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: left;
+       border: rgb(81, 2, 6) solid 1.5px;
+    }
+
+    .card h4 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #6b4a48;
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff1ed;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    footer .column {
+      width: 220px;
+    }
+
+    footer h4 {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    footer p, footer a {
+      font-size: 14px;
+      color: #4a2d2a;
+      text-decoration: none;
+      line-height: 1.5;
+      display: block;
+    }
+
+    #sign:hover{
+        transform: scale(1.1);
+    }
+
+    #sign{
+        transition: all 0.5s ease;
+    }
+
+        #start:hover{
+        transform: scale(1.1);
+    }
+
+    #start{
+        transition: all 0.5s ease;
+        margin-left:10px;
+    }
+
+    .head{
+        gap:45px;
+        /* padding:30px; */
+    }
+    
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+   <header class="navbar">
+    <div class="logo">
+        <img src="elira-logo1.jpg" alt="Elira Logo">
+        <span style="color:white">Elira</span>
+    </div>
+    <div class="head">
+        <a href="login.html"><button id="sign">Sign In</button></a>
+        <a href="login.html"><button id="start">Get Started</button></a>
+
+
+<script src="commmon.js"></script>
+
+</header>
+  
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="tag">✨ Begin your care journey</div>
+    <h1>A softer space for<br><span style="color:#7b2042">your Wellness journey</span></h1>
+    <p>A soothing companion that blends science, nature, and daily care to help you live more in harmony with your body.</p>
+
+    <div class="btns">
+      <button class="primary-btn"><a href="login.html">Start your glow journey</a></button>
+      <button class="outline-btn">Learn More</button>
+    </div>
+  </div>
+
+  <!-- FLOURISH SECTION -->
+  <div class="section">
+    <h2>Everything You Need</h2>
+    <h3>to Flourish</h3>
+    <p>Thoughtfully designed tools that adapt to your unique journey and support your growth every step of the way.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h4>Period Care</h4>
+        <p>"Your go-to rhythm tracker, keeping your cycle aligned and your flow confidently on-track."</p>
+      </div>
+
+      <div class="card">
+        <h4>Skin Care</h4>
+        <p>"Your skin-type hub for quick DIY mask inspo and tailored product picks that keep your glow on-strategy."</p>
+      </div>
+
+      <div class="card">
+        <h4>Hair Care</h4>
+        <p>"Your hair-type guide for quick DIY mask ideas and focused product picks to keep your strands thriving."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="column">
+      <h4>Elira</h4>
+      <p>A peaceful space designed to help you know your body better, care for yourself deeply, and live with more ease.</p>
+    </div>
+
+    <div class="column">
+      <h4>Features</h4>
+      <a href="#">Period Care</a>
+      <a href="#">Skin Care</a>
+      <a href="#">Hair Care</a>
+    </div>
+
+    <div class="column">
+      <h4>Company</h4>
+      <a href="#">About us</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

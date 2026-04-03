@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hair Care </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="common.css">
+   
+
+
+    <style>
+      :root {
+        --primary-pink: #fdf2f4;
+        --accent-pink: #f8d7da;
+        --border-pink: #f4c2c9;
+        --text-dark: #4a2c2a;
+        --text-light: #7a7a7a;
+        --white: #ffffff;
+      }
+
+      /* Main Content */
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .hero h1 {
+        font-size: 32px;
+        margin-bottom: 5px;
+      }
+      .hero p {
+        color: var(--text-light);
+        margin-bottom: 30px;
+      }
+
+      /* Concern Cards */
+      .concern-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        background: rgb(228, 188, 188);
+        padding: 30px;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        border: #f4c2c9 solid ;
+      }
+
+      .concern-card {
+        border: 1px solid #f8f6f6;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .concern-card:hover {
+        transform: translateY(-5px);
+      }
+      .concern-card.active {
+        border: 2px solid var(--border-pink);
+        background: #fffcfd;
+      }
+
+     
+      .concern-card h4 {
+        margin: 10px 0 5px;
+        font-size: 16px;
+      }
+      .concern-card p {
+        font-size: 12px;
+        color: var(--text-light);
+        margin: 0;
+      }
+
+      /* Recipe Section */
+      .remedy-section {
+        margin-top: 50px;
+      }
+      .recipe-grid {
+       display: grid;
+       grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+       gap: 24px;
+}
+
+
+      .product-grid {
+       display: grid;
+       grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+       gap: 24px;
+      }
+
+
+      .recipe-card {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        position: relative;
+        border: #510606 solid 0.3px;
+      }
+
+      .tag {
+        display: inline-block;
+        background: #f3ebff;
+        color: #6f42c1;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        margin-top: 15px;
+      }
+
+
+    </style>
+  </head>
+  <body>
+   
+<header class="navbar">
+    <div class="logo">
+        <img src="elira-logo1.jpg" alt="Elira Logo">
+        <span>Elira</span>
+    </div>
+
+    <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="period.html">Cycle</a>
+        <a href="skincare.html" id="selected">Skin Care</a>
+        <a href="haircare.html">Hair Care</a>
+    </nav>
+     <div class="user-box">
+  <span id="userName"><b>Hi</b></span>
+  <i class="fa-solid fa-right-from-bracket logout-icon" onclick="logout()"></i>
+</div>
+
+<script src="commmon.js"></script>
+
+</header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Skin Care Remedies </h1>
+        <p>Natural Ayurvedic solutions for your skin concerns</p>
+      </section>
+
+      <section class="concern-section">
+        <h3>What's your main skin concern?</h3>
+        <div class="concern-grid" id="concernGrid">
+          <div class="concern-card" data-type="oily">
+     
+            <h4>Oily </h4>
+            <p>shiny,acne prone</p>
+          </div>
+          <div class="concern-card" data-type="dry">
+            
+            <h4>Dry</h4>
+            <p>Flaky or tight skin</p>
+          </div>
+          <div class="concern-card" data-type="combination">
+          
+            <h4>Combination</h4>
+            <p>oil + dry areas </p>
+          </div>
+          <div class="concern-card" data-type="sensitive">
+          
+            <h4>Sensitive</h4>
+            <p>Easily irritated</p>
+          </div>
+        
+          <div class="concern-card" data-type="normal">
+            <h4>Normal</h4>
+            <p>Balanced & healthy</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="remedy-section">
+        <h2 id="remedyTitle">Remedies for Frizzy</h2>
+        <div class="recipe-grid" id="recipeContainer"></div>
+      </section>
+      <section class="product-section mt-5">
+        <h2 id="productTitle">Recommended Products for Frizzy</h2>
+        <div class="product-grid" id="productContainer">
+          <!-- Products will appear here dynamically -->
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const remedies = {
+
+        oily: [
+      {
+        title: "Multani Mitti Face Pack",
+        ingredients: "Multani mitti, rose water",
+        how: "Apply for 15 minutes and rinse",
+        benefits: "Absorbs excess oil and clears pores",
+        tag: "Oil Control"
+      },
+      {
+        title: "Neem & Turmeric Pack",
+        ingredients: "Neem powder, turmeric, water",
+        how: "Apply weekly on clean skin",
+        benefits: "Prevents acne and bacteria",
+        tag: "Acne Care"
+      }
+    ],
+
+    dry: [
+      {
+        title: "Honey & Milk Mask",
+        ingredients: "Raw honey, milk",
+        how: "Apply for 20 minutes",
+        benefits: "Deeply moisturizes skin",
+        tag: "Hydration"
+      },
+      {
+        title: "Aloe Vera Gel",
+        ingredients: "Fresh aloe gel",
+        how: "Apply daily before bed",
+        benefits: "Soothes dryness and repairs skin",
+        tag: "Soothing"
+      }
+    ],
+
+    combination: [
+      {
+        title: "Yogurt & Honey Mask",
+        ingredients: "Curd, honey",
+        how: "Apply for 15 minutes",
+        benefits: "Balances oil and dryness",
+        tag: "Skin Balance"
+      },
+      {
+        title: "Rose Water Toner",
+        ingredients: "Pure rose water",
+        how: "Apply with cotton daily",
+        benefits: "Refreshes and tightens pores",
+        tag: "Toning"
+      }
+    ],
+
+    sensitive: [
+      {
+        title: "Oatmeal & Milk Pack",
+        ingredients: "Oats powder, milk",
+        how: "Apply gently for 10 minutes",
+        benefits: "Calms irritation",
+        tag: "Gentle Care"
+      },
+      {
+        title: "Cucumber Gel",
+        ingredients: "Fresh cucumber paste",
+        how: "Apply and rinse after 15 mins",
+        benefits: "Reduces redness",
+        tag: "Cooling"
+      }
+    ],
+
+    normal: [
+      {
+        title: "Besan & Milk Pack",
+        ingredients: "Gram flour, milk",
+        how: "Apply weekly",
+        benefits: "Maintains glow",
+        tag: "Glow Boost"
+      },
+      {
+        title: "Rose Water Mist",
+        ingredients: "Rose water",
+        how: "Spray daily",
+        benefits: "Keeps skin fresh",
+        tag: "Daily Care"
+      }
+    ],
+      };
+
+     const products = {
+        oily: [
+          {
+            name: "Dot & Key Watermelon CTM Kit | Cleanser 100ml, Toner 150ml, Moisturizer 60ml | For Normal, Combination & Oily Skin | For Oil Free Glowing Skin Care",
+            price: "₹854",
+            img: "https://m.media-amazon.com/images/I/61zlZDzquLL._SX522_PIbundle-3,TopRight,0,0_AA522SH20_.jpg",
+            link: "https://amzn.in/d/gONkb8U",
+          },
+        
+          {
+            name: "The Derma Co Oil-Free Daily Face Moisturizer | With Hyaluronic Acid, Ceramides & Multivitamins | For Non-Greasy & Hydrated Skin | Prolonged Moisturization | Strengthens Skin Barrier | 100 g",
+            price: "₹313",
+            img: "https://m.media-amazon.com/images/I/411cIM2TqCL._SX522_.jpg",
+            link: "https://amzn.in/d/etJqf66",
+          },
+
+          {
+            name : "Kakadu plum brightening lotion and moisturizer",
+              price :"424",
+              img:"https://images.openai.com/thumbnails/url/V8aMS3icDcrhDkJAAADgJ8JCLFtrUZGMOUn8MZ3LCee4a5Wn6nV6m_z-vt8Xc06ZIUmIwPFDOSoFfiOyWDFe8BqKsO8khntKa1JthvVsxtYvVzaMpsDG0GoYPlVZoOG3pZjHJQHOflfOvbVQvEIYJENa577e9M8YwEJ5uUfeuQ_gC1OlXeD50AI1chLVDb008DpgTkMoZ96ILuBK1Ta_a1mv8YWel4wsRqgm4R_Qyj8H",
+              link:"https://amzn.in/d/9cSz9kl",
+          },
+
+          {
+            name :"Mamaearth Rice Face Wash",
+            price :"176",
+            img:"https://images.openai.com/thumbnails/url/9qAzG3icDclJDoIwAADAFwEiSIDEmBrRuIDSVgEvBAopRLsIdcFX-R1_o3Od76dRSva-YdScdINUdaWpkls67VWhWqITwYy-EVK2nM5u0__5IKq8FYmfDtYYC3cFSK_1UNDuxeSh2EKPbjRyAZmLsEACnDwnOGbmIwxEdgHItW-LJ86tMl86drpQ-_s44iOIWZTOh4RPYji80Ps4UUlQjnsiaBquyxAmzdlEW8t24h-jVj4T",
+            link:"https://amzn.in/d/7SVt7nL",
+
+          },
+        ],
+        dry: [
+          { name: "Aroma Magic Dry Skin Essentials Kit", 
+            price: "₹198",
+            img: "https://m.media-amazon.com/images/I/61RIpBHYRUL._SX522_PIbundle-4,TopRight,0,0_AA522SH20_.jpg" ,
+            link:"https://amzn.in/d/ixweSPI"},
+
+            { name : "Dot & Key watermelon CTM Kit ",
+              price :"1,139",
+              img:"https://images.openai.com/thumbnails/url/mGKJe3icDclJDoIwAADAF5VVlpoYA0WBCIbCQfFikCKLWEtpIPIo_-NvdK7z_TRCsHEtyxUt-ZuJigBxo4pUj6IQbSmVr6c8Ni_GWlpvh83_1s6RQL_E0xGYiZvbWTULgnaIoQ63vDF590DpofGHITFXWCdc06Dfx8DDuXV2FENdLimYgwxEAZxMy4mrVHUNGiK67yFPQ3KCs25fcy8a8f1wXkjRn3TIMqx2VPsBnMs7mQ",
+              link:"https://amzn.in/d/cileP6E",
+            },
+
+            {
+              name : "Kakadu plum brightening lotion and moisturizer",
+              price :"424",
+              img:"https://images.openai.com/thumbnails/url/V8aMS3icDcrhDkJAAADgJ8JCLFtrUZGMOUn8MZ3LCee4a5Wn6nV6m_z-vt8Xc06ZIUmIwPFDOSoFfiOyWDFe8BqKsO8khntKa1JthvVsxtYvVzaMpsDG0GoYPlVZoOG3pZjHJQHOflfOvbVQvEIYJENa577e9M8YwEJ5uUfeuQ_gC1OlXeD50AI1chLVDb008DpgTkMoZ96ILuBK1Ta_a1mv8YWel4wsRqgm4R_Qyj8H",
+              link:"https://amzn.in/d/9cSz9kl",
+
+            },
+
+            {
+              name : "Minimalist skincare kit",
+              price :"1247",
+              img:"https://images.openai.com/thumbnails/url/IM0jKnicDcnbEkJAGADgJ0IHITNNY3MqJXKo9o5dLasQ_zSTp-p1epv6br_vpwToBl2Siob07w4KKkDeTEQ2QAYVEUn7kIay7bqqYevn6n-64dOlQ8LdBo_4hPJ0x1I77DkuBY0crpxrbrW_gnFaxPiWuEoCPvZebr61rCg4FzMaWR7O6_GAjkKqqmCaMQ14xuUl2gq1YRuON78oZoEoTZEv14iOQ9veY9Nj03DBflXwPQU",
+              link:"https://amzn.in/d/4Ayo4w2",
+
+            },
+        ],
+
+        combination :[
+          { name : "Dot & Key watermelon CTM Kit ",
+              price :"1,139",
+              img:"https://images.openai.com/thumbnails/url/mGKJe3icDclJDoIwAADAF5VVlpoYA0WBCIbCQfFikCKLWEtpIPIo_-NvdK7z_TRCsHEtyxUt-ZuJigBxo4pUj6IQbSmVr6c8Ni_GWlpvh83_1s6RQL_E0xGYiZvbWTULgnaIoQ63vDF590DpofGHITFXWCdc06Dfx8DDuXV2FENdLimYgwxEAZxMy4mrVHUNGiK67yFPQ3KCs25fcy8a8f1wXkjRn3TIMqx2VPsBnMs7mQ",
+              link:"https://amzn.in/d/cileP6E",
+            },
+
+            {
+              name : "Kakadu plum brightening lotion and moisturizer",
+              price :"424",
+              img:"https://images.openai.com/thumbnails/url/V8aMS3icDcrhDkJAAADgJ8JCLFtrUZGMOUn8MZ3LCee4a5Wn6nV6m_z-vt8Xc06ZIUmIwPFDOSoFfiOyWDFe8BqKsO8khntKa1JthvVsxtYvVzaMpsDG0GoYPlVZoOG3pZjHJQHOflfOvbVQvEIYJENa577e9M8YwEJ5uUfeuQ_gC1OlXeD50AI1chLVDb008DpgTkMoZ96ILuBK1Ta_a1mv8YWel4wsRqgm4R_Qyj8H",
+              link:"https://amzn.in/d/9cSz9kl",
+
+            },
+
+            {
+              name : "Minimalist skincare kit",
+              price :"1247",
+              img:"https://images.openai.com/thumbnails/url/IM0jKnicDcnbEkJAGADgJ0IHITNNY3MqJXKo9o5dLasQ_zSTp-p1epv6br_vpwToBl2Siob07w4KKkDeTEQ2QAYVEUn7kIay7bqqYevn6n-64dOlQ8LdBo_4hPJ0x1I77DkuBY0crpxrbrW_gnFaxPiWuEoCPvZebr61rCg4FzMaWR7O6_GAjkKqqmCaMQ14xuUl2gq1YRuON78oZoEoTZEv14iOQ9veY9Nj03DBflXwPQU",
+              link:"https://amzn.in/d/4Ayo4w2",
+
+            },
+
+            {
+              name  : "Skin care kit",
+              price : "754",
+              img:"https://images.openai.com/thumbnails/url/KoO1VHicDcnbEkJAAADQL3JZacJM04iUa8SQXgwWS1mLzUx9VP_T39R5Pd8PopTMCsdVuJxehFaQoQXm2WamOW1Lthx6bkYDIS1uduP2f4rqQflYBmHa-Su5ByZIzBvAjiqGz-hR5zr_9DI7izRxeesWWJIp7qK33_XOug2WM7Lvqg6FFGmNLwNRqg8baMaMuyE4ky7x2eONvQWXcJKutNUkt-iMExqDiBJbsJwfwnw8dQ",
+              link:"https://amzn.in/d/a2i43gH",
+            },
+        ],
+
+        sensitive : [
+          {
+            name :"Cetaphil gentle cleanser & moisturizing lotion ",
+            price :"922",
+            img :"https://m.media-amazon.com/images/I/71e0Ycd6-HL._AC_UF1000%2C1000_QL80_.jpg",
+            link : "https://amzn.in/d/fSChzma",
+          },
+
+          {
+            name :"Plum 2% Niacinamide Rice Water Gel Cream Moisturizer",
+            price :"167",
+            img:"https://images.openai.com/thumbnails/url/gqxbanicDclJDoIwAADAFyniRjQxRrAU1Ah1KYELoS1LURZpBeVR_sff6Fzn-8mkrMVSUeKSNu9axmwgSakOUyEjyemQVoUisqqueZmuH6v_LTdHtoD0nFtmdfdbdeyOjxBeMGgC2EchQbeJ7XYJN-hI65PpdMKzB0StADeCsdwNPKFaObWJwVluOww5-ycfkVNqaH6ACvCqzOJQ9maxDa9AONmMu_rsinUvaLr5_Qcf5T4m",
+            link : "https://amzn.in/d/7WvcSkk",
+          },
+
+          {
+            name :"Mamaearth Rice Face Wash",
+            price :"176",
+            img:"https://images.openai.com/thumbnails/url/9qAzG3icDclJDoIwAADAFwEiSIDEmBrRuIDSVgEvBAopRLsIdcFX-R1_o3Od76dRSva-YdScdINUdaWpkls67VWhWqITwYy-EVK2nM5u0__5IKq8FYmfDtYYC3cFSK_1UNDuxeSh2EKPbjRyAZmLsEACnDwnOGbmIwxEdgHItW-LJ86tMl86drpQ-_s44iOIWZTOh4RPYji80Ps4UUlQjnsiaBquyxAmzdlEW8t24h-jVj4T" ,
+            link:"https://amzn.in/d/7SVt7nL",
+
+          },
+
+          {
+            name : "Dot & Key watermelon CTM Kit ",
+              price :"1,139",
+              img:"https://images.openai.com/thumbnails/url/mGKJe3icDclJDoIwAADAF5VVlpoYA0WBCIbCQfFikCKLWEtpIPIo_-NvdK7z_TRCsHEtyxUt-ZuJigBxo4pUj6IQbSmVr6c8Ni_GWlpvh83_1s6RQL_E0xGYiZvbWTULgnaIoQ63vDF590DpofGHITFXWCdc06Dfx8DDuXV2FENdLimYgwxEAZxMy4mrVHUNGiK67yFPQ3KCs25fcy8a8f1wXkjRn3TIMqx2VPsBnMs7mQ",
+              link:"https://amzn.in/d/cileP6E",
+          },
+
+        ],
+
+        normal : [
+          {
+             name : "Dot & Key watermelon CTM Kit ",
+              price :"1,139",
+              img:"https://images.openai.com/thumbnails/url/mGKJe3icDclJDoIwAADAF5VVlpoYA0WBCIbCQfFikCKLWEtpIPIo_-NvdK7z_TRCsHEtyxUt-ZuJigBxo4pUj6IQbSmVr6c8Ni_GWlpvh83_1s6RQL_E0xGYiZvbWTULgnaIoQ63vDF590DpofGHITFXWCdc06Dfx8DDuXV2FENdLimYgwxEAZxMy4mrVHUNGiK67yFPQ3KCs25fcy8a8f1wXkjRn3TIMqx2VPsBnMs7mQ",
+              link:"https://amzn.in/d/cileP6E",
+          },
+
+          {
+             name :"Cetaphil gentle cleanser & moisturizing lotion ",
+            price :"922",
+            img :"https://m.media-amazon.com/images/I/71e0Ycd6-HL._AC_UF1000%2C1000_QL80_.jpg",
+            link : "https://amzn.in/d/fSChzma",
+          },
+
+          {
+            name : "Kakadu plum brightening lotion and moisturizer",
+              price :"424",
+              img:"https://images.openai.com/thumbnails/url/V8aMS3icDcrhDkJAAADgJ8JCLFtrUZGMOUn8MZ3LCee4a5Wn6nV6m_z-vt8Xc06ZIUmIwPFDOSoFfiOyWDFe8BqKsO8khntKa1JthvVsxtYvVzaMpsDG0GoYPlVZoOG3pZjHJQHOflfOvbVQvEIYJENa577e9M8YwEJ5uUfeuQ_gC1OlXeD50AI1chLVDb008DpgTkMoZ96ILuBK1Ta_a1mv8YWel4wsRqgm4R_Qyj8H",
+              link:"https://amzn.in/d/9cSz9kl",
+          },
+
+          {
+            name :"Mamaearth Rice Face Wash",
+            price :"176",
+            img:"https://images.openai.com/thumbnails/url/9qAzG3icDclJDoIwAADAFwEiSIDEmBrRuIDSVgEvBAopRLsIdcFX-R1_o3Od76dRSva-YdScdINUdaWpkls67VWhWqITwYy-EVK2nM5u0__5IKq8FYmfDtYYC3cFSK_1UNDuxeSh2EKPbjRyAZmLsEACnDwnOGbmIwxEdgHItW-LJ86tMl86drpQ-_s44iOIWZTOh4RPYji80Ps4UUlQjnsiaBquyxAmzdlEW8t24h-jVj4T",
+            link:"https://amzn.in/d/7SVt7nL",
+
+          },
+        ]
+        
+        
+      };
+
+      const productContainer = document.getElementById("productContainer");
+      const productTitle = document.getElementById("productTitle");
+
+      function renderProducts(type) {
+        productContainer.innerHTML = "";
+        productTitle.textContent = `Recommended Products for ${
+          type.charAt(0).toUpperCase() + type.slice(1)
+        }`;
+
+        products[type].forEach((product) => {
+          productContainer.innerHTML += `
+      <div class="col">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${product.img}" class="img-fluid rounded-start" alt="${product.name}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text"><strong>${product.price}</strong></p>
+                <a href="${product.link}" target="_blank" class="btn btn-sm btn-primary">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+        });
+      }
+
+      const cards = document.querySelectorAll(".concern-card");
+      const recipeContainer = document.getElementById("recipeContainer");
+      const remedyTitle = document.getElementById("remedyTitle");
+
+      function renderRecipes(type) {
+        recipeContainer.innerHTML = "";
+        remedyTitle.textContent = `Remedies for ${
+          type.charAt(0).toUpperCase() + type.slice(1)
+        }`;
+
+        remedies[type].forEach((recipe) => {
+          recipeContainer.innerHTML += `
+      <div class="recipe-card">
+        <h3>${recipe.title}</h3>
+        <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+        <p><strong>How to use:</strong> ${recipe.howToUse}</p>
+        <p><strong>Benefits:</strong> ${recipe.benefits}</p>
+        <span class="tag"> ${recipe.tag}</span>
+      </div>
+    `;
+        });
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          cards.forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+
+          const type = card.dataset.type;
+          renderRecipes(type);
+          renderProducts(type);
+        });
+      });
+
+      // Load default (Frizzy)
+      renderRecipes("frizzy");
+
+
+    </script>
+  </body>
+</html>

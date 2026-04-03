@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HerHarmony – Cycle Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="common.css"/>
+
+<style>
+/* MAIN */
+.container {
+    padding: 40px;
+}
+
+h1 {
+    font-size: 34px;
+}
+
+.subtitle {
+    color: #8c6a6a;
+    margin-bottom: 30px;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+
+
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 15px;
+    border: 1px solid #f1cbd7;
+    margin: 10px 0 20px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 25px;
+    border: none;
+    background: #f3c6dd;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* CURRENT PHASE */
+.phase-box {
+    text-align: center;
+}
+.phase-badge {
+    background: #dff1e6;
+    padding: 8px 18px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* KEY DATES */
+.key-item {
+    background: #fffaf7;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* TIPS */
+.tips {
+    margin-top: 40px;
+}
+.tip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+.tip {
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+/* PHASES */
+.phases {
+    margin-top: 50px;
+}
+.phase-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+.phase-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+.phase-card.active {
+    background: #fde2e4;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">
+    <img src="elira-logo1.jpg" alt="logo">
+    <span>Elira</span>
+  </div>
+
+  <nav class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="period.html" id="selected">Cycle</a>
+    <a href="skincare.html">Skin Care</a>
+    <a href="haircare.html">Hair Care</a>
+  </nav>
+
+  <div class="user-box">
+    <span id="userName">Hi</span>
+    <i class="fa-solid fa-right-from-bracket logout-icon" onclick="logout()"></i>
+    <script src="commmon.js"></script>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+
+<h1>Cycle Tracker 🌙</h1>
+<div class="subtitle">
+Track your menstrual cycle and receive phase-specific wellness tips
+</div>
+
+<!-- SETUP -->
+<div class="card" style="max-width:500px;">
+    <h3>Set Up Your Cycle Tracking</h3>
+
+    <label>When did your last period start?</label>
+    <input type="date" id="lastPeriod">
+
+    <label>Average cycle length (days)</label>
+    <input type="number" id="cycleLength" value="28">
+
+    <button onclick="startTracking()">Start Tracking</button>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+<!-- CURRENT PHASE -->
+<div class="card phase-box">
+    <h3>Current Phase</h3>
+    <div style="font-size:50px;" id="phaseIcon">🌱</div>
+    <h2 id="phaseName">—</h2>
+    <div class="phase-badge" id="cycleDay">—</div>
+</div>
+
+<br>
+
+ <div id="menstrualVideo" class="card" style="display:none; margin-top:30px;">
+    <h3 style="text-align:center;">Gentle Care for Your Menstrual Days 🌸</h3>
+    <p style="text-align:center; color:#8c6a6a;">
+        Ease cramps, relax your body, and give yourself the rest you deserve.
+    </p>
+        <iframe width="500" height="315" src="https://www.youtube.com/embed/rDpzP6wQOEs?si=0b1GFTR5S4MVLvAV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>  
+<!-- KEY DATES -->
+<div class="card">
+    <h3>Key Dates</h3>
+
+    <div class="key-item">
+        <div>
+            <strong>Next Period</strong><br>
+            <span id="nextPeriod">—</span>
+        </div>
+        <div id="daysLeft">—</div>
+    </div>
+
+    <div class="key-item">
+        <div>
+            <strong>Fertile Window</strong><br>
+            Day 12 – Day 16
+        </div>
+        <div>Ovulation</div>
+    </div>
+</div>
+
+
+
+</div>
+
+
+<!-- TIPS -->
+<div class="card tips">
+<h3>Phase-Specific Tips</h3>
+<em>“Listen to your body and align your routine with your cycle.”</em>
+
+<div class="tip-grid">
+    <div class="tip">➤ Energy levels vary across phases</div>
+    <div class="tip">➤ Adjust workouts accordingly</div>
+    <div class="tip">➤ Eat nourishing foods</div>
+    <div class="tip">➤ Plan demanding tasks smartly</div>
+    <div class="tip">➤ Prioritize rest when needed</div>
+</div>
+</div>
+
+
+
+
+<!-- PHASES -->
+<div class="phases">
+<h2>Cycle Phases</h2>
+
+<div class="phase-row">
+    <div class="phase-card" id="menstrual">🌸<br><strong>Menstrual</strong></div>
+    <div class="phase-card" id="follicular">🌱<br><strong>Follicular</strong></div>
+    <div class="phase-card" id="ovulation">🌕<br><strong>Ovulation</strong></div>
+    <div class="phase-card" id="luteal">🌗<br><strong>Luteal</strong></div>
+</div>
+</div>
+
+</div>
+
+<script>
+function startTracking() {
+
+    const lastPeriod = new Date(document.getElementById("lastPeriod").value);
+    const cycleLength = parseInt(document.getElementById("cycleLength").value);
+
+    if (isNaN(lastPeriod) || isNaN(cycleLength)) {
+        alert("Please enter valid details");
+        return;
+    }
+
+    const today = new Date();
+    const diffDays = Math.floor((today - lastPeriod) / (1000 * 60 * 60 * 24)) + 1;
+
+    let phase = "";
+    let icon = "";
+    let activeId = "";
+
+    const video = document.getElementById("menstrualVideo");
+video.style.display = "none"; // hide every time
+
+
+    if (diffDays <= 5) {
+        phase = "Menstrual Phase";
+        icon = "🌸";
+        activeId = "menstrual";
+        video.style.display="block";
+    } 
+    else if (diffDays <= 13) {
+        phase = "Follicular Phase";
+        icon = "🌱";
+        activeId = "follicular";
+    } 
+    else if (diffDays === 14) {
+        phase = "Ovulation Phase";
+        icon = "🌕";
+        activeId = "ovulation";
+    } 
+    else {
+        phase = "Luteal Phase";
+        icon = "🌗";
+        activeId = "luteal";
+    }
+
+    // Next period
+    const nextPeriod = new Date(lastPeriod);
+    nextPeriod.setDate(lastPeriod.getDate() + cycleLength);
+
+    const daysLeft = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
+
+    // Update UI
+    document.getElementById("phaseName").innerText = phase;
+    document.getElementById("phaseIcon").innerText = icon;
+    document.getElementById("cycleDay").innerText = "Day " + diffDays + " of your cycle";
+    document.getElementById("nextPeriod").innerText = nextPeriod.toDateString();
+    document.getElementById("daysLeft").innerText = "In " + daysLeft + " days";
+
+    // Highlight phase
+    document.querySelectorAll(".phase-card").forEach(card => {
+        card.classList.remove("active");
+    });
+    document.getElementById(activeId).classList.add("active");
+
+}
+</script>
+
+</body>
+</html>
